@@ -6,12 +6,26 @@
 //
 
 import SwiftUI
+import Firebase
+
+class FirebaseManager: NSObject {
+    
+    let auth: Auth
+    static let shared = FirebaseManager()
+    override init(){
+        FirebaseApp.configure()
+        self.auth = Auth.auth()
+        super.init()
+    }
+}
 
 struct LoginView: View {
     
     @State var isLoginMode = false
     @State var email = ""
     @State var password = ""
+    
+    
     
     var body: some View {
         NavigationView{
@@ -63,6 +77,9 @@ struct LoginView: View {
                         }
                         .background(Color.blue)
                     }
+                    
+                    Text(loginStatusMessage)
+                        .foregroundColor(.red)
                 }
                 .padding()
                 
@@ -70,13 +87,42 @@ struct LoginView: View {
             .navigationTitle(isLoginMode ? "Log In" :"Create Account")
             .background(Color(.init(white: 0, alpha: 0.05)).ignoresSafeArea())
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func handleAction(){
         if isLoginMode {
-            print("Should log into Firebase with existing credentials")
+            loginUser()
         } else {
-            print("Should create new account in Firebase ")
+            createNewAccount()
+        }
+    }
+    
+    @State var loginStatusMessage = ""
+    
+    private func loginUser(){
+        FirebaseManager.shared.auth.signIn(withEmail: email, password: password){ result, error in
+            if let err = error {
+                print("Failed to login user: \(err)")
+                loginStatusMessage = "Failed to login user: \(err)"
+                return
+            }
+            
+            print("Succesfully logged in user: \(result?.user.uid ?? "")")
+            loginStatusMessage = "Succesfully logged in user: \(result?.user.uid ?? "")"
+        }
+    }
+    
+    private func createNewAccount(){
+        FirebaseManager.shared.auth.createUser(withEmail: email, password: password){ result, error in
+            if let err = error {
+                print("Failed to create user: \(err)")
+                loginStatusMessage = "Failed to create user: \(err)"
+                return
+            }
+            
+            print("Succesfully created user: \(result?.user.uid ?? "")")
+            loginStatusMessage = "Succesfully created user: \(result?.user.uid ?? "")"
         }
     }
 }
