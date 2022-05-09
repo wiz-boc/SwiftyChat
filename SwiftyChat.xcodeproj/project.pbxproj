@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF0F8B81282996B100B8CE3E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0F8B80282996B000B8CE3E /* ImagePicker.swift */; };
 		FF4CA89628276D0100908CFF /* SwiftyChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4CA89528276D0100908CFF /* SwiftyChatApp.swift */; };
 		FF4CA89828276D0100908CFF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4CA89728276D0100908CFF /* LoginView.swift */; };
 		FF4CA89A28276D0300908CFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF4CA89928276D0300908CFF /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FF0F8B80282996B000B8CE3E /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		FF4CA89228276D0100908CFF /* SwiftyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF4CA89528276D0100908CFF /* SwiftyChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyChatApp.swift; sourceTree = "<group>"; };
 		FF4CA89728276D0100908CFF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			children = (
 				FFA4B0DE28283FE3008AA403 /* GoogleService-Info.plist */,
 				FF4CA89528276D0100908CFF /* SwiftyChatApp.swift */,
+				FF0F8B80282996B000B8CE3E /* ImagePicker.swift */,
 				FF4CA89728276D0100908CFF /* LoginView.swift */,
 				FF4CA89928276D0300908CFF /* Assets.xcassets */,
 				FF4CA89B28276D0300908CFF /* Preview Content */,
@@ -162,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF0F8B81282996B100B8CE3E /* ImagePicker.swift in Sources */,
 				FF4CA89828276D0100908CFF /* LoginView.swift in Sources */,
 				FF4CA89628276D0100908CFF /* SwiftyChatApp.swift in Sources */,
 			);
