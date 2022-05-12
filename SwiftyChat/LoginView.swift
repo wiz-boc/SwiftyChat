@@ -8,16 +8,21 @@
 import SwiftUI
 import Firebase
 import FirebaseStorage
+import FirebaseFirestore
 
 class FirebaseManager: NSObject {
     
     let auth: Auth
     let storage: Storage
+    let firestore: Firestore
+    
     static let shared = FirebaseManager()
     override init(){
         FirebaseApp.configure()
         self.auth = Auth.auth()
         self.storage = Storage.storage()
+        self.firestore = Firestore.firestore()
+        
         super.init()
     }
 }
@@ -131,8 +136,11 @@ struct LoginView: View {
             
             print("Succesfully logged in user: \(result?.user.uid ?? "")")
             loginStatusMessage = "Succesfully logged in user: \(result?.user.uid ?? "")"
+            
+            
         }
     }
+    
     
     private func createNewAccount(){
         FirebaseManager.shared.auth.createUser(withEmail: email, password: password){ result, error in
@@ -168,8 +176,27 @@ struct LoginView: View {
                 }
                 
                 self.loginStatusMessage = "Successfully stored image with url: \(url?.absoluteString ?? "")"
+                
+                guard let url = url else { return }
+                storeUserInformation(imageProfileURL: url)
             }
         }
+    }
+    
+    private func storeUserInformation(imageProfileURL: URL){
+        
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+        
+        let userData = ["email": self.email, "uid": uid, "profileImageUrl": imageProfileURL.absoluteString]
+        FirebaseManager.shared.firestore.collection("users")
+            .document(uid).setData(userData){ err in
+                if let err = err {
+                    print(err)
+                    self.loginStatusMessage = "\(err)"
+                    return
+                }
+                print("Success")
+            }
     }
 }
 
