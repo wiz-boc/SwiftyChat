@@ -160,6 +160,7 @@ struct LoginView: View {
                 
                 return
             }
+            
             ref.downloadURL { url, err in
                 if let err = err {
                     self.loginStatusMessage = "failed to retrieved downloadURL: \(err)"
