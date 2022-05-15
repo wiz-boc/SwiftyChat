@@ -36,26 +36,34 @@ class CreateNewMessageViewModel: ObservableObject {
 
 struct CreateNewMessageView: View {
     
+    let didSelectNewUser: (ChatUser) -> ()
     @Environment(\.dismiss) var dismiss
     @ObservedObject var vm = CreateNewMessageViewModel()
     
     var body: some View {
         NavigationView{
             ScrollView{
-                Text(vm.errorMessage)
+                //Text(vm.errorMessage)
                 ForEach(vm.users){ user in
-                    HStack{
-                        WebImage(url: URL(string: user.profileImageURL))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 50, height: 50, alignment: .center)
-                            .clipped()
-                            .cornerRadius(50)
-                            .overlay(RoundedRectangle(cornerRadius: 50).stroke(Color(.label),lineWidth: 1))
-                    Text(user.email)
-                        Spacer()
+                    
+                    Button{
+                        dismiss()
+                        didSelectNewUser(user)
+                    } label: {
+                        HStack{
+                            WebImage(url: URL(string: user.profileImageURL))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 50, height: 50, alignment: .center)
+                                .clipped()
+                                .cornerRadius(50)
+                                .overlay(RoundedRectangle(cornerRadius: 50).stroke(Color(.label),lineWidth: 1))
+                            Text(user.email)
+                                .foregroundColor(Color(.label))
+                            Spacer()
+                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                     Divider()
                         .padding(.vertical,8)
                 }
@@ -76,6 +84,6 @@ struct CreateNewMessageView: View {
 
 struct CreateNewMessageView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateNewMessageView()
+        MainMessagesView()
     }
 }

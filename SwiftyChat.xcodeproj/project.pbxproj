@@ -16,6 +16,7 @@
 		FF460112282FF13100FD9113 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FF460111282FF13100FD9113 /* SDWebImageSwiftUI */; };
 		FF4601152830879A00FD9113 /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4601142830879A00FD9113 /* ChatUser.swift */; };
 		FF4601182830990C00FD9113 /* CreateNewMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4601172830990C00FD9113 /* CreateNewMessageView.swift */; };
+		FF46011A2830B40A00FD9113 /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4601192830B40A00FD9113 /* ChatLogView.swift */; };
 		FF4CA89628276D0100908CFF /* SwiftyChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4CA89528276D0100908CFF /* SwiftyChatApp.swift */; };
 		FF4CA89828276D0100908CFF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4CA89728276D0100908CFF /* LoginView.swift */; };
 		FF4CA89A28276D0300908CFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF4CA89928276D0300908CFF /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 		FF46010D282FEA5700FD9113 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		FF4601142830879A00FD9113 /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
 		FF4601172830990C00FD9113 /* CreateNewMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewMessageView.swift; sourceTree = "<group>"; };
+		FF4601192830B40A00FD9113 /* ChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogView.swift; sourceTree = "<group>"; };
 		FF4CA89228276D0100908CFF /* SwiftyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF4CA89528276D0100908CFF /* SwiftyChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyChatApp.swift; sourceTree = "<group>"; };
 		FF4CA89728276D0100908CFF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				FF460116283098F600FD9113 /* NewMessage */,
 				FF0F8B8C282E84C200B8CE3E /* MainMessagesView.swift */,
+				FF4601192830B40A00FD9113 /* ChatLogView.swift */,
 			);
 			path = MainMessages;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF4601152830879A00FD9113 /* ChatUser.swift in Sources */,
+				FF46011A2830B40A00FD9113 /* ChatLogView.swift in Sources */,
 				FF0F8B81282996B100B8CE3E /* ImagePicker.swift in Sources */,
 				FF0F8B8D282E84C200B8CE3E /* MainMessagesView.swift in Sources */,
 				FF46010E282FEA5700FD9113 /* FirebaseManager.swift in Sources */,
