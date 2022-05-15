@@ -57,9 +57,9 @@
 		FF0F8B8B282E848500B8CE3E /* MainMessages */ = {
 			isa = PBXGroup;
 			children = (
+				FF46011B2831814700FD9113 /* Chat */,
 				FF460116283098F600FD9113 /* NewMessage */,
 				FF0F8B8C282E84C200B8CE3E /* MainMessagesView.swift */,
-				FF4601192830B40A00FD9113 /* ChatLogView.swift */,
 			);
 			path = MainMessages;
 			sourceTree = "<group>";
@@ -86,6 +86,14 @@
 				FF4601172830990C00FD9113 /* CreateNewMessageView.swift */,
 			);
 			path = NewMessage;
+			sourceTree = "<group>";
+		};
+		FF46011B2831814700FD9113 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				FF4601192830B40A00FD9113 /* ChatLogView.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		FF4CA88928276D0100908CFF = {
