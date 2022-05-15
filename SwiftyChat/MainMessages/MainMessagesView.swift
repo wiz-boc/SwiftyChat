@@ -9,10 +9,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 
-struct ChatUser {
-    let uid, email, profileImageURL: String
-}
-
 class MainMessagesViewModel: ObservableObject {
     
     @Published var errorMessage = ""
@@ -21,9 +17,12 @@ class MainMessagesViewModel: ObservableObject {
         fetchCurrentUser()
     }
     
-    private func fetchCurrentUser(){
+    func fetchCurrentUser(){
         
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            DispatchQueue.main.async {
+                self.isUserCurrentlyLoggedOut = true
+            }
             self.errorMessage = "Could not find firebase uid"
             return
         }
@@ -36,13 +35,16 @@ class MainMessagesViewModel: ObservableObject {
             }
             guard let data = snapshot?.data() else { return }
             //self.errorMessage = "Data : \(data.description)"
-            
-            let email = data["email"] as? String ?? ""
-            let profileImageUrl = data["profileImageURL"] as? String ?? ""
-            self.chatUser = ChatUser(uid: uid, email: email, profileImageURL: profileImageUrl)
+            self.chatUser = ChatUser(data: data)
             self.errorMessage = self.chatUser?.email ?? ""
             
         }
+    }
+    
+    @Published var isUserCurrentlyLoggedOut = false
+    func handleSignOut() {
+        isUserCurrentlyLoggedOut.toggle()
+        try? FirebaseManager.shared.auth.signOut()
     }
 }
 
@@ -107,9 +109,16 @@ struct MainMessagesView: View {
             .init(title: Text("Settings"), message: Text("What do you want to do?"), buttons: [
                 .destructive(Text("Sign Out"), action: {
                     print("handle sign out")
+                    vm.handleSignOut()
                 }),
                 .cancel()
             ])
+        }
+        .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut) {
+            LoginView(didCompleteLoginProgress: {
+                self.vm.isUserCurrentlyLoggedOut = false
+                self.vm.fetchCurrentUser()
+            })
         }
     }
     
@@ -147,9 +156,10 @@ struct MainMessagesView: View {
         }
     }
     
+    @State var shouldShowNewMessageScreen = false
     private var newMessageButton: some View {
         Button {
-            
+            shouldShowNewMessageScreen.toggle()
         } label: {
             HStack {
                 Spacer()
@@ -163,6 +173,9 @@ struct MainMessagesView: View {
             .cornerRadius(32)
             .padding(.horizontal)
             .shadow(radius: 15)
+        }
+        .fullScreenCover(isPresented: $shouldShowNewMessageScreen) {
+            CreateNewMessageView()
         }
     }
 }
