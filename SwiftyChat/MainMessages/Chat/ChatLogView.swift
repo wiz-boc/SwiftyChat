@@ -33,7 +33,9 @@ class ChatLogViewModel: ObservableObject {
                 self.errorMessage = "Failed to save message into Firestore \(error)"
                 print(self.errorMessage)
             }
+            self.chatText = ""
         }
+        
         
         let recipientDocument = FirebaseManager.shared.firestore.collection("messages")
             .document(toId)
