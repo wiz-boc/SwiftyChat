@@ -9,25 +9,8 @@ import SwiftUI
 import Firebase
 
 
-struct FirebaseConstants {
-    static let fromId = "fromId"
-    static let toId = "toId"
-    static let text = "text"
-    static let timestamp = "timestamp"
-}
 
-struct ChatMessage: Identifiable {
-    var id: String { documentId }
-    let documentId: String
-    let fromId, toId, text: String
-    
-    init(documentId: String, data: [String: Any]){
-        self.documentId = documentId
-        self.fromId = data[FirebaseConstants.fromId] as? String ?? ""
-        self.toId = data[FirebaseConstants.toId] as? String ?? ""
-        self.text = data[FirebaseConstants.text] as? String ?? ""
-    }
-}
+
 
 class ChatLogViewModel: ObservableObject {
     
@@ -68,8 +51,6 @@ class ChatLogViewModel: ObservableObject {
                 
                 
             }
-        
-        
     }
     
     func handleSend() {
@@ -88,6 +69,8 @@ class ChatLogViewModel: ObservableObject {
                 self.errorMessage = "Failed to save message into Firestore \(error)"
                 print(self.errorMessage)
             }
+            
+            self.persistRecentMessage()
             self.chatText = ""
             self.count += 1
         }
@@ -103,6 +86,37 @@ class ChatLogViewModel: ObservableObject {
                 print(self.errorMessage)
             }
             print("Recipient send message")
+        }
+    }
+    
+    private func persistRecentMessage(){
+        guard let chatUser = chatUser else { return }
+
+        
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+        guard let toId = self.chatUser?.uid else { return }
+        let document = FirebaseManager.shared.firestore
+            .collection("recent_messages")
+            .document(uid)
+            .collection("messages")
+            .document(toId)
+        
+        let data = [
+            FirebaseConstants.timestamp: Timestamp(),
+            FirebaseConstants.text:self.chatText,
+            FirebaseConstants.fromId: uid,
+            FirebaseConstants.toId: toId,
+            FirebaseConstants.profileImageUrl: chatUser.profileImageURL,
+            FirebaseConstants.email: chatUser.email
+            
+        ] as [String: Any]
+        
+        document.setData(data) { error in
+            if let error = error {
+                self.errorMessage = "Failed to save recent messages: \(error)"
+                print(self.errorMessage)
+                return
+            }
         }
     }
     
