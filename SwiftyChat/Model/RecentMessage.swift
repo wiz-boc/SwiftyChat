@@ -25,4 +25,5 @@ struct RecentMessages: Codable, Identifiable {
 //        self.email = data[FirebaseConstants.email] as? String ?? ""
 //        self.profileImageURL = data[FirebaseConstants.profileImageUrl] as? String ?? ""
 //    }
+    
 }
